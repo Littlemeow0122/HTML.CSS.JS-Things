@@ -1,0 +1,76 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Base64 工具</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <h1>Base64 工具</h1>
+
+    <section class="row">
+      <div class="panel">
+        <label>動作</label>
+        <div class="buttons">
+          <label><input type="radio" name="mode" value="encode" checked /> 編碼</label>
+          <label><input type="radio" name="mode" value="decode" /> 解碼</label>
+        </div>
+      </div>
+
+      <div class="panel">
+        <label>來源</label>
+        <div class="buttons">
+          <label><input type="radio" name="inputType" value="text" checked /> 文字</label>
+          <label><input type="radio" name="inputType" value="file" /> 檔案</label>
+        </div>
+      </div>
+
+      <div class="panel">
+        <label>版本</label>
+        <select id="variant">
+          <option value="classic">經典 base64 (RFC 4648)</option>
+          <option value="apple">Apple 版本 (MIME-style 換行每 76 字元)</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="io">
+      <div class="left">
+        <label for="textInput">輸入</label>
+        <textarea id="textInput" placeholder="在此貼上要編碼/解碼的文字或 Base64。"></textarea>
+
+        <div id="fileControls" class="file-controls hidden">
+          <input id="fileInput" type="file" />
+          <label><input id="includeDataUrl" type="checkbox" /> 編碼檔案時包含 data URL 頭 (data:...;base64,)</label>
+        </div>
+
+        <div class="actions">
+          <button id="processBtn">執行</button>
+          <button id="clearBtn" class="secondary">清除</button>
+        </div>
+      </div>
+
+      <div class="right">
+        <label for="result">結果</label>
+        <textarea id="result" readonly placeholder="結果會顯示在這裡。"></textarea>
+
+        <div class="actions">
+          <button id="copyBtn">複製結果</button>
+          <button id="downloadBtn" class="secondary">下載</button>
+        </div>
+
+        <div id="preview" class="preview hidden"></div>
+      </div>
+    </section>
+
+    <footer>
+      <small>支援：文字、圖片、音樂、影片、任意二進位檔。選擇編碼/解碼模式與版本後按「執行」。</small>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
