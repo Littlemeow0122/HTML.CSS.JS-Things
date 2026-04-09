@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>URL 編碼 / 解碼</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="title">URL 編碼 / 解碼</h1>
+
+    <div class="pane">
+      <label for="input" class="label">輸入</label>
+      <textarea id="input" class="textarea" placeholder="在此貼上或輸入文字，然後按下「編碼」或「解碼」..."></textarea>
+    </div>
+
+    <div class="controls">
+      <button id="encodeBtn" class="btn">編碼</button>
+      <button id="decodeBtn" class="btn">解碼</button>
+      <button id="clearBtn" class="btn neutral">清除</button>
+      <button id="copyBtn" class="btn primary">複製輸出</button>
+    </div>
+
+    <div class="pane">
+      <label for="output" class="label">輸出</label>
+      <textarea id="output" class="textarea" readonly placeholder="結果會顯示在此處"></textarea>
+    </div>
+
+    <div id="status" class="status" aria-live="polite"></div>
+
+    <footer class="footer">
+      小提示：解碼時會把「+」視為空格。可使用 Ctrl+E 編碼、Ctrl+D 解碼、Ctrl+L 清除、Ctrl+Shift+C 複製。
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
