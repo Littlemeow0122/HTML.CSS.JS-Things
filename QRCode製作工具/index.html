@@ -1,275 +1,126 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>QRCode 產生器（顏色/漸層/碼眼/中心圖案/內容類型/下載檔名）</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>QRCode產生器</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://cdn-icons-png.flaticon.com/512/8711/8711968.png"
+    />
 
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>QRCode產生器</h1>
+        <p class="subtle">輸入內容後即可生成，並可選擇配色與中間圖示。</p>
+      </header>
 
-<body>
-  <div class="container">
-    <h2>QRCode 產生器</h2>
+      <div class="grid">
+        <div class="form-group">
+          <label for="data">輸入內容：</label>
+          <input type="text" id="data" value="https://example.com" />
+        </div>
 
-    <div class="sectionTitle">內容類型</div>
+        <div class="form-group">
+          <label for="fg-color">前景顏色：</label>
+          <input type="color" id="fg-color" value="#000000" />
+        </div>
 
-    <div class="formRow">
-      <label class="radio">
-        <input type="radio" name="payloadType" value="url" checked>
-        <span>開啟連結</span>
-      </label>
-      <label class="radio">
-        <input type="radio" name="payloadType" value="app">
-        <span>打開 App（xxx://xxx）</span>
-      </label>
-      <label class="radio">
-        <input type="radio" name="payloadType" value="email">
-        <span>電子郵件</span>
-      </label>
-      <label class="radio">
-        <input type="radio" name="payloadType" value="wifi">
-        <span>WiFi</span>
-      </label>
-      <label class="radio">
-        <input type="radio" name="payloadType" value="tel">
-        <span>電話</span>
-      </label>
-      <label class="radio">
-        <input type="radio" name="payloadType" value="contact">
-        <span>聯絡人</span>
-      </label>
-    </div>
+        <div class="form-group">
+          <label for="bg-color">背景顏色：</label>
+          <input type="color" id="bg-color" value="#ffffff" />
+        </div>
 
-    <!-- URL -->
-    <div class="group" data-group="url">
-      <div class="form-group">
-        <label>網址（URL）</label>
-        <input type="url" id="urlValue" placeholder="https://example.com" value="https://example.com">
-      </div>
-    </div>
+        <div class="form-group">
+          <label for="logo">上傳中央圖示：</label>
+          <input type="file" id="logo" accept="image/*" />
+          <div class="hint">圖片會置於 QR 中央（支援透明）。</div>
+        </div>
 
-    <!-- APP -->
-    <div class="group" data-group="app" hidden>
-      <div class="form-group">
-        <label>App Scheme（例如 myapp://open?x=1）</label>
-        <input type="text" id="appScheme" placeholder="myapp://open?x=1" value="myapp://open">
-      </div>
-    </div>
+        <div class="form-group">
+          <label for="corner-style">馬眼樣式：</label>
+          <select id="corner-style">
+            <option value="square">方形</option>
+            <option value="dot">圓點</option>
+            <option value="extra-rounded">超圓角</option>
+          </select>
+        </div>
 
-    <!-- EMAIL -->
-    <div class="group" data-group="email" hidden>
-      <div class="form-group">
-        <label>收件者 Email</label>
-        <input type="email" id="emailTo" placeholder="name@example.com" value="name@example.com">
-      </div>
-      <div class="form-group">
-        <label>主旨（可選）</label>
-        <input type="text" id="emailSubject" placeholder="Hello">
-      </div>
-      <div class="form-group">
-        <label>內容（可選）</label>
-        <textarea id="emailBody" rows="3" placeholder="Your message..."></textarea>
-      </div>
-    </div>
+        <div class="form-group">
+          <label for="error-correction">錯誤容忍率：</label>
+          <select id="error-correction">
+            <option value="L">L</option>
+            <option value="M">M</option>
+            <option value="Q">Q</option>
+            <option value="H" selected>H</option>
+          </select>
+        </div>
 
-    <!-- WIFI -->
-    <div class="group" data-group="wifi" hidden>
-      <div class="form-group">
-        <label>SSID</label>
-        <input type="text" id="wifiSsid" placeholder="MyWiFi" value="MyWiFi">
-      </div>
-      <div class="form-group">
-        <label>加密方式</label>
-        <select id="wifiAuth">
-          <option value="WPA" selected>WPA/WPA2</option>
-          <option value="WEP">WEP</option>
-          <option value="nopass">無密碼</option>
-        </select>
-      </div>
-      <div class="form-group" id="wifiPasswordWrap">
-        <label>密碼（可選，nopass 可留空）</label>
-        <input type="text" id="wifiPassword" placeholder="password">
-      </div>
-    </div>
+        <div class="form-group">
+          <label for="size">尺寸 (px)：</label>
+          <input
+            type="number"
+            id="size"
+            value="300"
+            min="100"
+            max="1000"
+          />
+        </div>
 
-    <!-- TEL -->
-    <div class="group" data-group="tel" hidden>
-      <div class="form-group">
-        <label>電話號碼</label>
-        <input type="tel" id="telNumber" placeholder="+886912345678" value="+886912345678">
-      </div>
-    </div>
+        <div class="form-group">
+          <label for="gradient-switch">背景樣式：</label>
+          <select id="gradient-switch">
+            <option value="off">單色</option>
+            <option value="horizontal">水平漸層</option>
+            <option value="vertical">垂直漸層</option>
+          </select>
+        </div>
 
-    <!-- CONTACT -->
-    <div class="group" data-group="contact" hidden>
-      <div class="form-group">
-        <label>姓名（必填）</label>
-        <input type="text" id="cName" placeholder="王小明" value="王小明">
+        <div id="gradient-options" class="gradient-options" style="display: none">
+          <div class="form-group">
+            <label for="gradient-start">漸層起始顏色：</label>
+            <input type="color" id="gradient-start" value="#ffffff" />
+          </div>
+
+          <div class="form-group">
+            <label for="gradient-end">漸層結束顏色：</label>
+            <input type="color" id="gradient-end" value="#cccccc" />
+          </div>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label>性別（可選）</label>
-        <select id="cGender">
-          <option value="">不指定</option>
-          <option value="M">男</option>
-          <option value="F">女</option>
-          <option value="O">其他</option>
-        </select>
+      <div class="actions">
+        <button type="button" class="btn primary" id="btn-generate">
+          產生 QRCode
+        </button>
+        <button type="button" class="btn" id="btn-download">
+          下載 QRCode
+        </button>
       </div>
 
-      <div class="form-group">
-        <label>生日（可選，YYYY-MM-DD）</label>
-        <input type="date" id="cBirthday">
-      </div>
-
-      <div class="form-group">
-        <label>住址（可選）</label>
-        <input type="text" id="cAddress" placeholder="台北市..." value="">
-      </div>
+      <div id="qr" class="qr-wrap" aria-live="polite"></div>
     </div>
 
-    <div class="sectionTitle">外觀</div>
+    <!-- libs -->
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-    <div class="form-group">
-      <label>前景顏色（單色時有效）</label>
-      <input type="color" id="fgColor" value="#0b5fff">
-    </div>
-
-    <div class="form-group">
-      <label>背景顏色（通常留白可掃）</label>
-      <input type="color" id="bgColor" value="#ffffff">
-    </div>
-
-    <div class="form-group">
-      <label class="radioRow">
-        <input type="checkbox" id="useGradient">
-        <span>使用漸層（前景）</span>
-      </label>
-    </div>
-
-    <div id="gradientOptions" class="gradientBox" style="display:none;">
-      <div class="form-group">
-        <label>漸層起點色</label>
-        <input type="color" id="gradFrom" value="#0b5fff">
-      </div>
-      <div class="form-group">
-        <label>漸層終點色</label>
-        <input type="color" id="gradTo" value="#00c2ff">
-      </div>
-      <div class="form-group">
-        <label>漸層方向</label>
-        <select id="gradDir">
-          <option value="tl-br" selected>左上 → 右下</option>
-          <option value="bl-tr">左下 → 右上</option>
-          <option value="l-r">左 → 右</option>
-          <option value="t-b">上 → 下</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>碼眼樣式（Corners）</label>
-      <select id="eyeStyle">
-        <option value="square" selected>方塊（square corners）</option>
-        <option value="dot">圓點（dot corners）</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>點樣式（Dots）</label>
-      <select id="dotsStyle">
-        <option value="rounded" selected>rounded（高質感）</option>
-        <option value="square">square</option>
-        <option value="dots">dots</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>尺寸（px）</label>
-      <input type="number" id="qrSize" value="520" min="120" max="1200">
-    </div>
-
-    <div class="form-group">
-      <label>錯誤容忍率（Error Correction）</label>
-      <select id="ecLevel">
-        <option value="L">L</option>
-        <option value="M" selected>M</option>
-        <option value="Q">Q</option>
-        <option value="H">H</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>內邊距（margin，越大越好掃描）</label>
-      <input type="number" id="margin" value="2" min="0" max="20">
-    </div>
-
-    <div class="form-group">
-      <label class="radioRow">
-        <input type="checkbox" id="keepQuietZone" checked>
-        <span>保留寬鬆 quiet zone</span>
-      </label>
-    </div>
-
-    <div class="sectionTitle">中心圖案（Logo）</div>
-
-    <div class="form-group">
-      <label>上傳中央圖示</label>
-      <input type="file" id="logoFile" accept="image/*">
-      <div class="hint">未上傳不顯示中心圖案。</div>
-    </div>
-
-    <div class="form-group">
-      <label>中心圖案大小（比例，0~0.6）</label>
-      <input type="number" id="logoSize" value="0.3" min="0" max="0.6" step="0.01">
-    </div>
-
-    <div class="form-group">
-      <label class="radioRow">
-        <input type="checkbox" id="logoUseBorderBg" checked>
-        <span>中心圖案加底色底板（更易掃描）</span>
-      </label>
-    </div>
-
-    <div class="form-group">
-      <label>中心底色</label>
-      <input type="color" id="logoBg" value="#ffffff">
-    </div>
-
-    <div class="form-group">
-      <label>下載檔名（例如 xxx.png）</label>
-      <input type="text" id="downloadName" value="qrcode.png">
-    </div>
-
-    <div class="form-group">
-      <label>輸出格式</label>
-      <select id="outputFormat">
-        <option value="png" selected>PNG</option>
-        <option value="image">SVG/PNG（以套件預覽輸出）</option>
-      </select>
-      <div class="hint">iOS：長按圖片即可儲存。</div>
-    </div>
-
-    <div class="btnRow">
-      <button id="btnGenerate" class="primary">產生 QR Code</button>
-      <button id="btnDownload" class="ghost">下載</button>
-      <button id="btnClearLogo" class="ghost">移除中心圖案</button>
-    </div>
-
-    <div class="qrArea">
-      <div id="qr"></div>
-    </div>
-  </div>
-
-  <!-- 使用與你提供範例同一套做法：QRCodeStyling + 轉出下載，避免你遇到的「圖片沒顯示」問題 -->
-  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
-  <script src="script.js"></script>
-</body>
-</html> 
+    <!-- app -->
+    <script src="script.js"></script>
+  </body>
+</html>
