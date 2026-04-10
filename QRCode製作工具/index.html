@@ -1,265 +1,387 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>QR Code 產生器（可色彩/漸層/碼眼/中心圖案/URL/App/Email/WiFi/Tel/聯絡人/自訂檔名）</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>QRCode 產生器</title>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <header class="top">
-    <h1>QR Code 產生器</h1>
-    <div class="sub">可調整：前景/背景顏色、前景漸層、碼眼樣式、中心圖案；內容類型支援 URL / App（xxx://xxx）/ Email / WiFi / 電話 / 聯絡人；下載檔名可自訂。</div>
-  </header>
+  <div class="app">
+    <header class="header">
+      <div class="title">QRCode 產生器</div>
+      <div class="subtitle">可調顏色/漸層、碼眼樣式、中心圖案、APP/Email/WiFi/電話/聯絡人、可自訂下載檔名</div>
+    </header>
 
-  <main class="layout">
-    <section class="panel">
-      <div class="section-title">內容類型</div>
-      <div class="row" role="radiogroup">
-        <label class="radio"><input type="radio" name="payloadType" value="url" checked><span>開啟連結（URL）</span></label>
-        <label class="radio"><input type="radio" name="payloadType" value="app"><span>打開 App（xxx://xxx）</span></label>
-        <label class="radio"><input type="radio" name="payloadType" value="email"><span>Email</span></label>
-        <label class="radio"><input type="radio" name="payloadType" value="wifi"><span>WiFi</span></label>
-        <label class="radio"><input type="radio" name="payloadType" value="tel"><span>電話</span></label>
-        <label class="radio"><input type="radio" name="payloadType" value="contact"><span>聯絡人</span></label>
-      </div>
-
-      <div class="group" data-group="url">
-        <div class="field">
-          <label for="urlValue">網址（URL）</label>
-          <input type="url" id="urlValue" placeholder="https://example.com" />
-        </div>
-      </div>
-
-      <div class="group" data-group="app" hidden>
-        <div class="field">
-          <label for="appScheme">App scheme（xxx://xxx）</label>
-          <input type="text" id="appScheme" placeholder="myapp://open?x=1" />
-        </div>
-      </div>
-
-      <div class="group" data-group="email" hidden>
-        <div class="grid2">
-          <div class="field">
-            <label for="emailTo">收件者 Email</label>
-            <input type="email" id="emailTo" placeholder="name@example.com" />
-          </div>
-          <div class="field">
-            <label for="emailSubject">主旨（可選）</label>
-            <input type="text" id="emailSubject" placeholder="Hello" />
-          </div>
-        </div>
-        <div class="field">
-          <label for="emailBody">內容（可選）</label>
-          <textarea id="emailBody" rows="3" placeholder="Your message..."></textarea>
-        </div>
-      </div>
-
-      <div class="group" data-group="wifi" hidden>
-        <div class="grid2">
-          <div class="field">
-            <label for="wifiSsid">SSID</label>
-            <input type="text" id="wifiSsid" placeholder="MyWiFi" />
-          </div>
-          <div class="field">
-            <label for="wifiAuth">加密方式</label>
-            <select id="wifiAuth">
-              <option value="WPA" selected>WPA/WPA2</option>
-              <option value="WEP">WEP</option>
-              <option value="nopass">無密碼</option>
-            </select>
-          </div>
-        </div>
-        <div class="field">
-          <label for="wifiPassword">密碼（可選；nopass 不需要）</label>
-          <input type="text" id="wifiPassword" placeholder="password" />
-        </div>
-      </div>
-
-      <div class="group" data-group="tel" hidden>
-        <div class="field">
-          <label for="telNumber">電話號碼</label>
-          <input type="tel" id="telNumber" placeholder="+886912345678" />
-        </div>
-      </div>
-
-      <div class="group" data-group="contact" hidden>
-        <div class="grid2">
-          <div class="field">
-            <label for="cName">姓名（必填）</label>
-            <input type="text" id="cName" placeholder="王小明" />
-          </div>
-          <div class="field">
-            <label for="cGender">性別（可選）</label>
-            <select id="cGender">
-              <option value="">不指定</option>
-              <option value="M">男</option>
-              <option value="F">女</option>
-              <option value="O">其他</option>
-            </select>
-          </div>
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label for="cBirthday">生日（YYYY-MM-DD，可選）</label>
-            <input type="date" id="cBirthday" />
-          </div>
-          <div class="field">
-            <label for="cAddress">住址（可選）</label>
-            <input type="text" id="cAddress" placeholder="台北市..." />
-          </div>
-        </div>
-      </div>
-
-      <div class="section-title" style="margin-top:18px;">外觀（顏色/漸層/碼眼/中心圖案）</div>
-
-      <div class="grid2">
-        <div class="field">
-          <label for="fgColor">前景色</label>
-          <input type="color" id="fgColor" value="#0b5fff" />
-        </div>
-        <div class="field">
-          <label for="bgColor">背景色</label>
-          <input type="color" id="bgColor" value="#ffffff" />
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="row-inline">
-          <input type="checkbox" id="useGradient" />
-          <span>使用漸層</span>
-        </label>
-      </div>
-
-      <div class="grid2">
-        <div class="field">
-          <label for="gradFrom">漸層起點色</label>
-          <input type="color" id="gradFrom" value="#0b5fff" />
-        </div>
-        <div class="field">
-          <label for="gradTo">漸層終點色</label>
-          <input type="color" id="gradTo" value="#00c2ff" />
-        </div>
-      </div>
-
-      <div class="grid2">
-        <div class="field">
-          <label for="gradDir">漸層方向</label>
-          <select id="gradDir">
-            <option value="tl-br">左上 → 右下</option>
-            <option value="bl-tr">左下 → 右上</option>
-            <option value="l-r">左 → 右</option>
-            <option value="t-b">上 → 下</option>
+    <main class="layout">
+      <section class="panel controls">
+        <!-- Content type -->
+        <div class="section">
+          <label class="label" for="contentType">內容類型</label>
+          <select id="contentType" class="control">
+            <option value="link" selected>一般連結（https://...）</option>
+            <option value="app">開啟 App（xxx://xxx）</option>
+            <option value="email">電子郵件（mailto）</option>
+            <option value="wifi">WiFi</option>
+            <option value="phone">電話（tel）</option>
+            <option value="contact">聯絡人（vCard）</option>
           </select>
         </div>
-        <div class="field">
-          <label for="eyeStyle">碼眼樣式</label>
-          <select id="eyeStyle">
-            <option value="default">方塊</option>
-            <option value="circle">圓點</option>
-            <option value="square">粗方塊</option>
-            <option value="none">留空</option>
-          </select>
+
+        <!-- Link -->
+        <div class="section hidden" id="box-link">
+          <label class="label" for="linkUrl">連結 URL</label>
+          <input id="linkUrl" class="control" type="url" placeholder="https://example.com" />
         </div>
-      </div>
 
-      <div class="grid2">
-        <div class="field">
-          <label for="qrSize">整體尺寸（像素）</label>
-          <input type="number" id="qrSize" min="120" max="1400" step="10" value="560" />
+        <!-- App -->
+        <div class="section hidden" id="box-app">
+          <label class="label" for="appScheme">App scheme</label>
+          <input id="appScheme" class="control" type="text" placeholder="xxx://xxx" />
+          <div class="hint">例如：myapp://open?user=123</div>
         </div>
-        <div class="field">
-          <label for="ecLevel">容錯率（EC）</label>
-          <select id="ecLevel">
-            <option value="L">L</option>
-            <option value="M" selected>M</option>
-            <option value="Q">Q</option>
-            <option value="H">H</option>
-          </select>
+
+        <!-- Email -->
+        <div class="section hidden" id="box-email">
+          <div class="two">
+            <div>
+              <label class="label" for="emailTo">收件者</label>
+              <input id="emailTo" class="control" type="email" placeholder="xxx@xx.xx" />
+            </div>
+            <div>
+              <label class="label" for="emailSubject">主旨（可選）</label>
+              <input id="emailSubject" class="control" type="text" placeholder="Subject" />
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <label class="label" for="emailBody">內文（可選）</label>
+            <textarea id="emailBody" class="control textarea" placeholder="Message"></textarea>
+          </div>
         </div>
-      </div>
 
-      <div class="grid2">
-        <div class="field">
-          <label for="margin">內邊距（quiet zone）</label>
-          <input type="number" id="margin" min="0" max="20" step="1" value="2" />
+        <!-- WiFi -->
+        <div class="section hidden" id="box-wifi">
+          <div class="two">
+            <div>
+              <label class="label" for="wifiSsid">SSID</label>
+              <input id="wifiSsid" class="control" type="text" placeholder="MyWiFi" />
+            </div>
+            <div>
+              <label class="label" for="wifiAuth">加密</label>
+              <select id="wifiAuth" class="control">
+                <option value="WPA" selected>WPA</option>
+                <option value="WEP">WEP</option>
+                <option value="nopass">無密碼</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <label class="label" for="wifiPass">密碼（可選；nopass 可留空）</label>
+            <input id="wifiPass" class="control" type="text" placeholder="password" />
+          </div>
         </div>
-        <div class="field">
-          <label for="logoSizePct">中心圖案大小（%）</label>
-          <input type="number" id="logoSizePct" min="0" max="40" step="1" value="18" />
+
+        <!-- Phone -->
+        <div class="section hidden" id="box-phone">
+          <label class="label" for="phoneNumber">電話號碼</label>
+          <input id="phoneNumber" class="control" type="tel" placeholder="+886912345678" />
         </div>
-      </div>
 
-      <div class="field">
-        <label class="row-inline">
-          <input type="checkbox" id="logoUseBorderBg" checked />
-          <span>中心圖案加背景底色</span>
-        </label>
-      </div>
+        <!-- Contact -->
+        <div class="section hidden" id="box-contact">
+          <div class="two">
+            <div>
+              <label class="label" for="contactName">姓名</label>
+              <input id="contactName" class="control" type="text" placeholder="姓名" />
+            </div>
+            <div>
+              <label class="label" for="contactGender">性別（可選）</label>
+              <select id="contactGender" class="control">
+                <option value="">不指定</option>
+                <option value="M">男</option>
+                <option value="F">女</option>
+              </select>
+            </div>
+          </div>
 
-      <div class="grid2">
-        <div class="field">
-          <label for="logoBg">中心圖案底色</label>
-          <input type="color" id="logoBg" value="#ffffff" />
+          <div class="two" style="margin-top:10px;">
+            <div>
+              <label class="label" for="contactBirthday">生日（可選）</label>
+              <input id="contactBirthday" class="control" type="date" />
+            </div>
+            <div>
+              <label class="label" for="contactAddress">住址（可選）</label>
+              <input id="contactAddress" class="control" type="text" placeholder="地址" />
+            </div>
+          </div>
+
+          <div style="margin-top:10px;">
+            <label class="label" for="contactExtra">額外（可選，直接加入 vCard 輸入）</label>
+            <textarea id="contactExtra" class="control textarea" placeholder="例如：EMAIL;TYPE=INTERNET:abc@xx.xx"></textarea>
+            <div class="hint">留空即可。這裡會原樣加入到 vCard（可用於加入 email/phone 等）。</div>
+          </div>
         </div>
-        <div class="field">
-          <label for="logoRadius">中心圖案圓角</label>
-          <input type="number" id="logoRadius" min="0" max="60" step="1" value="14" />
+
+        <!-- QR settings -->
+        <div class="section">
+          <div class="two">
+            <div>
+              <label class="label" for="eccLevel">糾錯等級</label>
+              <select id="eccLevel" class="control">
+                <option value="M">M（中）</option>
+                <option value="Q">Q（較高）</option>
+                <option value="H" selected>H（最高）</option>
+                <option value="L">L（最低）</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="size">尺寸（px）</label>
+              <input id="size" class="control" type="number" min="128" max="1024" value="420" />
+            </div>
+          </div>
+          <div class="two" style="margin-top:10px;">
+            <div>
+              <label class="label" for="marginModules">外框留白（module）</label>
+              <input id="marginModules" class="control" type="number" min="0" max="10" value="2" />
+            </div>
+            <div>
+              <label class="label" for="downloadScale">輸出解析度倍率</label>
+              <select id="downloadScale" class="control">
+                <option value="1">1x</option>
+                <option value="2" selected>2x</option>
+                <option value="3">3x</option>
+                <option value="4">4x</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="field">
-        <label for="logoFile">上傳中心圖案（PNG/JPG/SVG 圖檔）</label>
-        <input type="file" id="logoFile" accept="image/*" />
-        <div class="hint">不上傳：不顯示中心圖案。</div>
-      </div>
+        <!-- Color / Gradient -->
+        <div class="section">
+          <label class="label">QRCode 顏色</label>
+          <div class="two">
+            <div>
+              <label class="label" for="bgColor">背景色（背景；可選）</label>
+              <input id="bgColor" class="control color" type="color" value="#ffffff" />
+              <div class="hint">背景色也會反映到漸層渲染的最終效果。</div>
+            </div>
+            <div>
+              <label class="label" for="fgMode">前景樣式</label>
+              <select id="fgMode" class="control">
+                <option value="solid" selected>純色</option>
+                <option value="gradient">漸層</option>
+              </select>
+            </div>
+          </div>
 
-      <div class="field">
-        <label class="row-inline">
-          <input type="checkbox" id="keepQuietZone" checked />
-          <span>保留寬鬆 quiet zone</span>
-        </label>
-      </div>
+          <div id="box-solid" class="boxColorMode">
+            <label class="label" for="fgSolidColor" style="margin-top:10px;">前景純色</label>
+            <input id="fgSolidColor" class="control color" type="color" value="#111827" />
+          </div>
 
-      <div class="section-title" style="margin-top:18px;">下載</div>
+          <div id="box-gradient" class="boxColorMode hidden">
+            <div class="two" style="margin-top:10px;">
+              <div>
+                <label class="label" for="gradAngle">漸層角度（0~360）</label>
+                <input id="gradAngle" class="control" type="number" min="0" max="360" value="90" />
+              </div>
+              <div>
+                <label class="label" for="gradType">漸層方向</label>
+                <select id="gradType" class="control">
+                  <option value="linear" selected>線性（線性漸層）</option>
+                </select>
+              </div>
+            </div>
 
-      <div class="grid2">
-        <div class="field">
-          <label for="downloadName">檔名（下載後）</label>
-          <input type="text" id="downloadName" value="qrcode.png" />
+            <div class="two" style="margin-top:10px;">
+              <div>
+                <label class="label" for="gradStart">起始色</label>
+                <input id="gradStart" class="control color" type="color" value="#0b5cff" />
+              </div>
+              <div>
+                <label class="label" for="gradEnd">結束色</label>
+                <input id="gradEnd" class="control color" type="color" value="#7c3aed" />
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="field">
-          <label for="outputFormat">輸出格式</label>
-          <select id="outputFormat">
-            <option value="png" selected>PNG</option>
-            <option value="svg">SVG（用圖片封裝）</option>
-          </select>
+
+        <!-- Eye styles -->
+        <div class="section">
+          <label class="label">碼眼（Finder Eyes）</label>
+
+          <div class="two">
+            <div>
+              <label class="label" for="eyeStyle">樣式</label>
+              <select id="eyeStyle" class="control">
+                <option value="roundedSquare" selected>方形（圓角）</option>
+                <option value="circle">圓形</option>
+                <option value="diamond">菱形</option>
+                <option value="square">方形（直角）</option>
+                <option value="pill">膠囊</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="eyeRadiusPct">圓角/半徑（%）</label>
+              <input id="eyeRadiusPct" class="control" type="range" min="0" max="60" value="28" />
+            </div>
+          </div>
+
+          <div class="two" style="margin-top:10px;">
+            <div>
+              <label class="label" for="eyeColorMode">碼眼顏色</label>
+              <select id="eyeColorMode" class="control">
+                <option value="auto" selected>自動（跟隨前景/漸層）</option>
+                <option value="custom">自訂</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="eyeCustomColor">碼眼自訂顏色</label>
+              <input id="eyeCustomColor" class="control color" type="color" value="#111827" />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="actions">
-        <button id="btnGenerate" class="primary">產生 QR Code</button>
-        <button id="btnDownload" class="ghost">下載</button>
-        <button id="btnClearLogo" class="ghost" type="button">移除中心圖案</button>
-      </div>
+        <!-- Dots style -->
+        <div class="section">
+          <label class="label">其他碼點（Dots / Data Modules）</label>
+          <div class="two">
+            <div>
+              <label class="label" for="dotStyle">樣式</label>
+              <select id="dotStyle" class="control">
+                <option value="square" selected>方塊</option>
+                <option value="circle">圓點</option>
+                <option value="roundedSquare">圓角方塊</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="dotRadiusPct">圓角（%）</label>
+              <input id="dotRadiusPct" class="control" type="range" min="0" max="60" value="18" />
+            </div>
+          </div>
+        </div>
 
-      <div class="divider"></div>
+        <!-- Center logo / text -->
+        <div class="section">
+          <label class="label">中心圖案</label>
+          <div class="two">
+            <div>
+              <label class="label" for="centerMode">模式</label>
+              <select id="centerMode" class="control">
+                <option value="none" selected>不放圖案</option>
+                <option value="image">上傳圖片</option>
+                <option value="text">文字</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="centerSizePct">中心大小（%）</label>
+              <input id="centerSizePct" class="control" type="range" min="5" max="35" value="16" />
+            </div>
+          </div>
 
-      <div class="section-title">內容檢查</div>
-      <div class="hint">顯示實際被編碼進 QR 的字串。</div>
-      <textarea id="payloadDebug" readonly rows="6"></textarea>
-    </section>
+          <div id="centerImageBox" class="hidden" style="margin-top:10px;">
+            <input id="centerImage" class="control" type="file" accept="image/*" />
+            <div class="hint">圖片會自動縮放並置於 QR 中央。</div>
+          </div>
 
-    <section class="previewPanel">
-      <div class="section-title">預覽</div>
-      <div class="canvasHolder">
-        <img id="qrPreviewImg" alt="QR預覽" />
-      </div>
-      <canvas id="qrCanvas" style="display:none;"></canvas>
-      <svg id="qrSvg" style="display:none;"></svg>
-    </section>
-  </main>
+          <div id="centerTextBox" class="hidden" style="margin-top:10px;">
+            <div class="two">
+              <div>
+                <label class="label" for="centerText">中心文字</label>
+                <input id="centerText" class="control" type="text" value="LOGO" />
+              </div>
+              <div>
+                <label class="label" for="centerTextColor">文字顏色</label>
+                <input id="centerTextColor" class="control color" type="color" value="#111827" />
+              </div>
+            </div>
+            <div class="two" style="margin-top:10px;">
+              <div>
+                <label class="label" for="centerTextBg">文字底色（可選）</label>
+                <input id="centerTextBg" class="control color" type="color" value="#ffffff" />
+              </div>
+              <div>
+                <label class="label" for="centerTextBgOn">是否使用底色</label>
+                <select id="centerTextBgOn" class="control">
+                  <option value="1" selected>是</option>
+                  <option value="0">否</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
-  <script src="script.js"></script>
+          <div class="two" style="margin-top:10px;">
+            <div>
+              <label class="label" for="centerBorderPx">中心外框寬（px，可選）</label>
+              <input id="centerBorderPx" class="control" type="number" min="0" max="30" value="2" />
+            </div>
+            <div>
+              <label class="label" for="centerBorderColor">中心外框顏色</label>
+              <input id="centerBorderColor" class="control color" type="color" value="#ffffff" />
+            </div>
+          </div>
+
+          <div class="two" style="margin-top:10px;">
+            <div>
+              <label class="label" for="quietZone">安靜區（推薦）</label>
+              <select id="quietZone" class="control">
+                <option value="1" selected>開</option>
+                <option value="0">關</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="invertTest">暗/亮反轉（測試用）</label>
+              <select id="invertTest" class="control">
+                <option value="0">否</option>
+                <option value="1">是</option>
+              </select>
+            </div>
+          </div>
+          <div class="hint">若掃描失敗：提高糾錯等級、降低中心大小、或加大安靜區。</div>
+        </div>
+
+        <!-- Download -->
+        <div class="section">
+          <div class="two">
+            <div>
+              <label class="label" for="filename">下載檔名（xxx.png）</label>
+              <input id="filename" class="control" type="text" value="qrcode.png" />
+            </div>
+            <div>
+              <label class="label" for="downloadType">輸出格式</label>
+              <select id="downloadType" class="control">
+                <option value="png" selected>PNG</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="generateBtn" class="btn primary" type="button">產生 QRCode</button>
+            <button id="downloadBtn" class="btn" type="button">下載 PNG</button>
+          </div>
+
+          <div id="status" class="status" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- Preview -->
+      <section class="panel preview">
+        <div class="section">
+          <div class="previewTitle">預覽</div>
+          <div class="qrWrap">
+            <!-- iOS 長按此系統圖片即可儲存 -->
+            <img id="qrImg" alt="QRCode preview" />
+          </div>
+          <div class="meta">
+            <div><span class="k">內容</span><span class="v" id="contentPreview"></span></div>
+            <div><span class="k">提示</span><span class="v">若掃描失敗：提高糾錯等級（H）、縮小中心圖案。</span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./script.js"></script>
 </body>
 </html>
