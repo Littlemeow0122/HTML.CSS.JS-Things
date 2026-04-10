@@ -1,126 +1,97 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
-    <title>QRCode產生器</title>
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="https://cdn-icons-png.flaticon.com/512/8711/8711968.png"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>QRCode 產生器</title>
 
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+  <link rel="stylesheet" href="style.css">
 
-  <body>
-    <div class="container">
-      <header class="header">
-        <h1>QRCode產生器</h1>
-        <p class="subtle">輸入內容後即可生成，並可選擇配色與中間圖示。</p>
-      </header>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/8711/8711968.png" />
+</head>
+<body>
 
-      <div class="grid">
-        <div class="form-group">
-          <label for="data">輸入內容：</label>
-          <input type="text" id="data" value="https://example.com" />
-        </div>
+  <div class="container">
+    <h2>QRCode 產生器</h2>
 
-        <div class="form-group">
-          <label for="fg-color">前景顏色：</label>
-          <input type="color" id="fg-color" value="#000000" />
-        </div>
-
-        <div class="form-group">
-          <label for="bg-color">背景顏色：</label>
-          <input type="color" id="bg-color" value="#ffffff" />
-        </div>
-
-        <div class="form-group">
-          <label for="logo">上傳中央圖示：</label>
-          <input type="file" id="logo" accept="image/*" />
-          <div class="hint">圖片會置於 QR 中央（支援透明）。</div>
-        </div>
-
-        <div class="form-group">
-          <label for="corner-style">馬眼樣式：</label>
-          <select id="corner-style">
-            <option value="square">方形</option>
-            <option value="dot">圓點</option>
-            <option value="extra-rounded">超圓角</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="error-correction">錯誤容忍率：</label>
-          <select id="error-correction">
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="Q">Q</option>
-            <option value="H" selected>H</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="size">尺寸 (px)：</label>
-          <input
-            type="number"
-            id="size"
-            value="300"
-            min="100"
-            max="1000"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="gradient-switch">背景樣式：</label>
-          <select id="gradient-switch">
-            <option value="off">單色</option>
-            <option value="horizontal">水平漸層</option>
-            <option value="vertical">垂直漸層</option>
-          </select>
-        </div>
-
-        <div id="gradient-options" class="gradient-options" style="display: none">
-          <div class="form-group">
-            <label for="gradient-start">漸層起始顏色：</label>
-            <input type="color" id="gradient-start" value="#ffffff" />
-          </div>
-
-          <div class="form-group">
-            <label for="gradient-end">漸層結束顏色：</label>
-            <input type="color" id="gradient-end" value="#cccccc" />
-          </div>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button type="button" class="btn primary" id="btn-generate">
-          產生 QRCode
-        </button>
-        <button type="button" class="btn" id="btn-download">
-          下載 QRCode
-        </button>
-      </div>
-
-      <div id="qr" class="qr-wrap" aria-live="polite"></div>
+    <div class="form-group">
+      <label>輸入內容：</label>
+      <input type="text" id="data" value="https://example.com">
     </div>
 
-    <!-- libs -->
-    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <div class="form-group">
+      <label>前景顏色：</label>
+      <input type="color" id="fg-color" value="#000000">
+    </div>
 
-    <!-- app -->
-    <script src="script.js"></script>
-  </body>
+    <div class="form-group">
+      <label>背景顏色：</label>
+      <input type="color" id="bg-color" value="#ffffff">
+    </div>
+
+    <div class="form-group">
+      <label>上傳中央圖示：</label>
+      <input type="file" id="logo" accept="image/*">
+    </div>
+
+    <div class="form-group">
+      <label>馬眼樣式：</label>
+      <select id="corner-style">
+        <option value="square">方形</option>
+        <option value="dot">圓點</option>
+        <option value="extra-rounded">超圓角</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>錯誤容忍率：</label>
+      <select id="error-correction">
+        <option value="L">L</option>
+        <option value="M">M</option>
+        <option value="Q">Q</option>
+        <option value="H" selected>H</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>尺寸 (px)：</label>
+      <input type="number" id="size" value="300" min="100" max="1000">
+    </div>
+
+    <div class="form-group">
+      <label>背景樣式：</label>
+      <select id="gradient-switch">
+        <option value="off">單色</option>
+        <option value="horizontal">水平漸層</option>
+        <option value="vertical">垂直漸層</option>
+      </select>
+    </div>
+
+    <div id="gradient-options" class="hidden">
+      <div class="form-group">
+        <label>漸層起始顏色：</label>
+        <input type="color" id="gradient-start" value="#ffffff">
+      </div>
+
+      <div class="form-group">
+        <label>漸層結束顏色：</label>
+        <input type="color" id="gradient-end" value="#cccccc">
+      </div>
+    </div>
+
+    <button onclick="generateQRCode()">產生 QRCode</button>
+    <button onclick="downloadQRCode()">下載 QRCode</button>
+
+    <div id="qr"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
 </html>
