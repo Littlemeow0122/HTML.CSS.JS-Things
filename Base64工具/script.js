@@ -1,4 +1,4 @@
-/* script.js */
+// script.js
 (() => {
   const modeEls = document.getElementsByName('mode');
   const inputTypeEls = document.getElementsByName('inputType');

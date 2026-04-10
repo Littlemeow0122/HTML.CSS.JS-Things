@@ -1,5 +1,4 @@
 // script.js
-
 // 元件
 const inputEl = document.getElementById('input');
 const outputEl = document.getElementById('output');

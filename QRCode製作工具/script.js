@@ -1,3 +1,4 @@
+// script.js
 document.getElementById("gradient-switch").addEventListener("change", function () {
   document.getElementById("gradient-options").classList.toggle("hidden", this.value === "off");
 });
