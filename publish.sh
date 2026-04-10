@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 # 檢查是否有未提交的更改
 if git diff --quiet && git diff --staged --quiet; then
