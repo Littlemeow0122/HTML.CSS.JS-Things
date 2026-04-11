@@ -8,7 +8,7 @@
 
 程式編寫軟體: Visual Studio Code *(Web+APP)*  
 測試工具: OneCompiler  
-部署網頁工具: Claudflare*(meowmi0122)*  
+部署網頁工具: Claudflare *(meowmi0122)*  
 
 ## 克隆
 **HTTPS**
