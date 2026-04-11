@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>URL 參數解析工具</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>URL 參數解析工具</h1>
+      <p class="subtitle">輸入網址或查詢字串，快速查看參數、原始值與解碼結果。</p>
+    </header>
+
+    <section class="panel">
+      <label for="inputUrl" class="label">網址 / 查詢字串</label>
+      <textarea id="inputUrl" rows="3" placeholder="例如： https://example.com/path?name=Bob&age=18&tag=a&tag=b
+或只輸入： ?name=Bob&age=18"></textarea>
+
+      <div class="toolbar">
+        <button id="parseBtn" type="button">解析</button>
+        <button id="clearBtn" type="button" class="ghost">清除</button>
+        <button id="copyBtn" type="button" class="ghost">複製結果(JSON)</button>
+      </div>
+
+      <div class="hint">
+        <span>支援重複 key（例如 tag=a&tag=b 會顯示多筆）。</span>
+        <span class="sep">•</span>
+        <span>自動從輸入中擷取 ? 之後的內容進行解析。</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="row">
+        <div class="col">
+          <h2 class="section-title">解析結果</h2>
+          <div id="summary" class="summary"></div>
+        </div>
+        <div class="col right">
+          <h2 class="section-title">原始查詢字串</h2>
+          <pre id="rawQuery" class="mono box"></pre>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table" aria-label="URL 參數表格">
+          <thead>
+            <tr>
+              <th class="w-key">Key</th>
+              <th class="w-val">解碼值</th>
+              <th class="w-val">原始值</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr>
+              <td colspan="3" class="empty">尚未解析</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="json-wrap">
+        <h2 class="section-title">JSON（便於後續使用）</h2>
+        <pre id="jsonOut" class="mono box json"></pre>
+      </div>
+
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <footer class="footer">
+      <span>提示：可直接貼上完整網址，或只貼上 ? 後的部分。</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
