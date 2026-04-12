@@ -1,0 +1,84 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JSON 格式化 / 壓縮工具</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <h1>JSON 格式化 / 壓縮</h1>
+      <p class="sub">貼上 JSON，然後格式化或壓縮。</p>
+    </header>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">輸入</div>
+          <div class="meta" id="inMeta">長度：-</div>
+        </div>
+
+        <textarea id="input" class="textarea" spellcheck="false" placeholder="在此貼上 JSON..."></textarea>
+
+        <div class="row">
+          <label class="check">
+            <input type="checkbox" id="autoValidate" checked />
+            即時驗證
+          </label>
+
+          <button id="clearBtn" class="btn btn-ghost" type="button" title="清空輸入">
+            清空
+          </button>
+        </div>
+
+        <div id="errorBox" class="error" role="alert" hidden></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">輸出</div>
+          <div class="meta" id="outMeta">長度：-</div>
+        </div>
+
+        <textarea id="output" class="textarea" spellcheck="false" placeholder="輸出會顯示在這裡..."></textarea>
+
+        <div class="row actions">
+          <div class="btn-group">
+            <button id="formatBtn" class="btn" type="button" title="格式化（Pretty）">
+              格式化
+            </button>
+            <button id="minifyBtn" class="btn btn-primary" type="button" title="壓縮（Minify）">
+              壓縮
+            </button>
+          </div>
+
+          <div class="btn-group">
+            <label class="check">
+              <input type="checkbox" id="copyAfter" />
+              生成後自動複製
+            </label>
+
+            <button id="copyBtn" class="btn btn-ghost" type="button" title="複製輸出">
+              複製
+            </button>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div>壓縮率：<span id="ratio">-</span></div>
+          <div class="hint">壓縮率 = (壓縮後 / 原始) × 100%</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>提示：JSON 必須是有效的。</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
