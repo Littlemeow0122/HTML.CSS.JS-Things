@@ -1,4 +1,3 @@
-#1
 if git diff --quiet && git diff --staged --quiet; then
     echo "沒有更改需要提交。"
     exit 0
