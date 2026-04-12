@@ -1,4 +1,4 @@
-#!/bin/bash
+#1
 
 if git diff --quiet && git diff --staged --quiet; then
     echo "沒有更改需要提交。"
@@ -9,9 +9,8 @@ git add .
 
 commit_message="Update $(date +'%Y-%m-%d %H:%M:%S')"
 git commit -m "$commit_message"
-
-
 git pull origin main --rebase
+
 
 
 git push origin main
