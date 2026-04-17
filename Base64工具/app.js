@@ -1,42 +1,44 @@
 export default {
   async fetch(request) {
-    try {
-      const HTML_URL = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Base64工具/index.html";
-      const CSS_URL  = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Base64工具/style.css";
-      const JS_URL   = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Base64工具/script.js";
+    const url = new URL(request.url);
 
-      const ICON = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Icon.PNG";
+    const HTML_URL = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Base64工具/index.html";
+    const LIGHT_CSS = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Base64工具/style.css";
+    const DARK_CSS  = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Base64工具/dark.css";
+    const JS_URL    = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Base64工具/script.js";
 
-      const [htmlRes, cssRes, jsRes] = await Promise.all([
-        fetch(HTML_URL + "?t=" + Date.now()),
-        fetch(CSS_URL + "?t=" + Date.now()),
-        fetch(JS_URL + "?t=" + Date.now())
-      ]);
+    const ICON = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Icon.PNG";
 
-      let html = await htmlRes.text();
-      const css = await cssRes.text();
-      const js = await jsRes.text();
+    const isDark = url.pathname.endsWith("/dark");
+    const cssUrl = isDark ? DARK_CSS : LIGHT_CSS;
 
-      html = html
-        .replace(/<meta[^>]*http-equiv=["']refresh["'][^>]*>/gi, "")
-        .replace(/<base[^>]*>/gi, "");
+    const [htmlRes, cssRes, jsRes] = await Promise.all([
+      fetch(HTML_URL + "?t=" + Date.now()),
+      fetch(cssUrl + "?t=" + Date.now()),
+      fetch(JS_URL + "?t=" + Date.now())
+    ]);
 
-      const headInsert = `
+    let html = await htmlRes.text();
+    const css = await cssRes.text();
+    const js = await jsRes.text();
+
+    
+    html = html
+      .replace(/<meta[^>]*http-equiv=["']refresh["'][^>]*>/gi, "")
+      .replace(/<base[^>]*>/gi, "");
+
+    const head = `
 <link rel="icon" href="${ICON}">
 <link rel="apple-touch-icon" href="${ICON}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <style>${css}</style>
 `;
 
-      html = html.replace("</head>", headInsert + "</head>");
-      html = html.replace("</body>", `<script>${js}</script></body>`);
+    html = html.replace("</head>", head + "</head>");
+    html = html.replace("</body>", `<script>${js}</script></body>`);
 
-      return new Response(html, {
-        headers: { "content-type": "text/html;charset=UTF-8" }
-      });
-
-    } catch (err) {
-      return new Response("Error: " + err.message, { status: 500 });
-    }
+    return new Response(html, {
+      headers: { "content-type": "text/html;charset=UTF-8" }
+    });
   }
 };
