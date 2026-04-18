@@ -30,10 +30,11 @@ gh repo clone Littlemeow0122/HTML.CSS.JS-Things
 * **Base64 工具**  
   說明: [README](https://github.com/Littlemeow0122/HTML.CSS.JS-Things/blob/main/Base64工具/README.md)
 
-  主題&控制台: [淺色](https://base64tool.meowmi0122.workers.dev/) ([控制台](https://base64tool.meowmi0122.workers.dev/console)) --- [深色](https://base64tool.meowmi0122.workers.dev/dark) ([控制台](https://base64tool.meowmi0122.workers.dev/dark/console)) 
-* **URL編碼、解碼**
-* **URL參數解析工具**
-* **JSON格式化、壓縮工具** 
+  主題&控制台: [淺色](https://base64tool.meowmi0122.workers.dev/) ([控制台](https://base64tool.meowmi0122.workers.dev/console)) --- [深色](https://base64tool.meowmi0122.workers.dev/dark) ([控制台](https://base64tool.meowmi0122.workers.dev/dark/console))
+* **URL編碼、解碼工具**  
+  說明: [README](https://github.com/Littlemeow0122/HTML.CSS.JS-Things/blob/main/URL編碼、解碼工具/README.md)
+
+  主題&控制台: [淺色](https://url-parameters.meowmi0122.workers.dev/dark/console/) ([控制台](https://url-parameters.meowmi0122.workers.dev/dark/console/console)) --- [深色](https://url-parameters.meowmi0122.workers.dev/dark/console/dark) ([控制台](https://url-parameters.meowmi0122.workers.dev/dark/console/dark/console)) 
 
 # 🎨 設計 / 視覺工具 🎨
 
