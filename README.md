@@ -27,12 +27,13 @@ gh repo clone Littlemeow0122/HTML.CSS.JS-Things
 
 # 🧰 工具類 🧰
 
-名稱   | 連結   | 說明   | 主題   | 控制台
------|-------|-----|--------|-
-Base64 工具 | https://base64tool.meowmi0122.workers.dev/ | [README](https://github.com/Littlemeow0122/HTML.CSS.JS-Things/blob/main/Base64工具/README.md) | [淺色](https://base64tool.meowmi0122.workers.dev)-[深色](https://base64tool.meowmi0122.workers.dev/dark) | [淺色](https://base64tool.meowmi0122.workers.dev/console)-[深色](https://base64tool.meowmi0122.workers.dev/dark/console)
-URL編碼、解碼 | https://percent-encoding.meowmi0122.workers.dev/ | [README](https://github.com/Littlemeow0122/HTML.CSS.JS-Things/blob/main/URL編碼、解碼工具/README.md)
-URL參數解析工具 | https://url-parameters.meowmi0122.workers.dev/ | [README](https://github.com/Littlemeow0122/HTML.CSS.JS-Things/blob/main/URL參數解析工具/README.md)
-JSON格式化、壓縮工具 | https://json-formatter-minifier.meowmi0122.workers.dev | ...
+* **Base64 工具**  
+  說明: [README](https://github.com/Littlemeow0122/HTML.CSS.JS-Things/blob/main/Base64工具/README.md)
+
+  主題&控制台: [淺色](https://base64tool.meowmi0122.workers.dev/) ([控制台](https://base64tool.meowmi0122.workers.dev/console)) --- [深色](https://base64tool.meowmi0122.workers.dev/dark) ([控制台](https://base64tool.meowmi0122.workers.dev/console)) 
+* **URL編碼、解碼**
+* **URL參數解析工具**
+* **JSON格式化、壓縮工具** 
 
 # 🎨 設計 / 視覺工具 🎨
 
