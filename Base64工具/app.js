@@ -9,7 +9,9 @@ export default {
 
     const ICON = "https://raw.githubusercontent.com/Littlemeow0122/HTML.CSS.JS-Things/main/Icon.PNG";
 
-    const isDark = url.pathname.endsWith("/dark");
+    const isDark = url.pathname.includes("/dark");
+    const useEruda = url.pathname.includes("/console");
+
     const cssUrl = isDark ? DARK_CSS : LIGHT_CSS;
 
     const [htmlRes, cssRes, jsRes] = await Promise.all([
@@ -22,7 +24,6 @@ export default {
     const css = await cssRes.text();
     const js = await jsRes.text();
 
-    
     html = html
       .replace(/<meta[^>]*http-equiv=["']refresh["'][^>]*>/gi, "")
       .replace(/<base[^>]*>/gi, "");
@@ -35,7 +36,58 @@ export default {
 `;
 
     html = html.replace("</head>", head + "</head>");
-    html = html.replace("</body>", `<script>${js}</script></body>`);
+
+    const erudaScript = useEruda ? `
+<script>
+(function () {
+  if (window.__ERUDA_LOADED__) return;
+  window.__ERUDA_LOADED__ = true;
+
+  const CDN = "https://cdn.jsdelivr.net/npm/";
+  const plugins = ["dom","vue","monitor","features","benchmark","geolocation","timing","code","orientation","touches"];
+
+  const load = (src, cb) => {
+    const s = document.createElement("script");
+    s.src = src;
+    s.onload = cb;
+    document.documentElement.appendChild(s);
+  };
+
+  function init() {
+    load(CDN + "eruda", () => {
+      eruda.init();
+      let i = 0;
+
+      function next() {
+        if (i < plugins.length) {
+          const name = plugins[i++];
+          load(CDN + "eruda-" + name, () => {
+            const pluginName = "eruda" + name.charAt(0).toUpperCase() + name.slice(1);
+            if (window[pluginName]) eruda.add(window[pluginName]);
+            next();
+          });
+        } else {
+          eruda.show();
+        }
+      }
+
+      next();
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+` : "";
+
+    html = html.replace(
+      "</body>",
+      `<script>${js}</script>${erudaScript}</body>`
+    );
 
     return new Response(html, {
       headers: { "content-type": "text/html;charset=UTF-8" }
