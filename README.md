@@ -34,7 +34,7 @@ gh repo clone Littlemeow0122/HTML.CSS.JS-Things
 * **URL編碼、解碼工具**  
   說明: [README](https://github.com/Littlemeow0122/HTML.CSS.JS-Things/blob/main/URL編碼、解碼工具/README.md)
 
-  主題&控制台: [淺色](https://url-parameters.meowmi0122.workers.dev/dark/console/) ([控制台](https://url-parameters.meowmi0122.workers.dev/dark/console/console)) --- [深色](https://url-parameters.meowmi0122.workers.dev/dark/console/dark) ([控制台](https://url-parameters.meowmi0122.workers.dev/dark/console/dark/console)) 
+  主題&控制台: [淺色](https://url-parameters.meowmi0122.workers.dev/) ([控制台](https://url-parameters.meowmi0122.workers.dev/console) --- [深色](https://url-parameters.meowmi0122.workers.dev/dark) ([控制台](https://url-parameters.meowmi0122.workers.dev/dark/console/)) 
 
 # 🎨 設計 / 視覺工具 🎨
 
